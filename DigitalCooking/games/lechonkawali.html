@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cook Lechon Kawali</title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		body{
+			background-image: url("images/kitchen.jpg");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+
+		div.palete{
+			background-color: #FFFF99;
+			width: 80px;
+			height: 500px;
+			padding: 10px;
+			border: 8px solid white;
+			margin: 15px;
+			border-radius: 5px;
+		}
+
+        div.instruction{
+            background-color: #FFFF99;
+            width: 400px;
+            height: 60px;
+            padding: 10px;
+            border: 8px solid white;
+            margin: 15px;
+            border-radius: 5px;
+        }
+
+		img{
+			width: 80%;
+			transition: 0.5s linear 0s;
+
+		}
+
+		.floatright{
+			float: right;
+		}
+		.floatleft{
+			float: left;
+		}
+
+		#stove{
+			width: 600px;
+			position: absolute;
+			top:  300px;
+			left: 300px;
+			
+		}
+
+		#pan{
+			width: 250px;
+			position: absolute;
+			top:  400px;
+			left: 300px;
+			
+		}
+
+        #oil{
+            width: 150px;
+            position: absolute;
+            top:  470px;
+            left: 330px;
+        }
+
+        #pork{
+			width: 70px;
+			position: absolute;
+			top:  450px;
+			left: 360px;
+
+		}
+
+
+
+        img:hover {
+            transition: .5s linear 0s;
+            width: 110%;
+        }
+	</style>
+</head>
+<body>
+	<script src="try.js"></script>
+    <script src="scripts/jquery-1.8.2.min.js" type="text/javascript"></script> 
+    <script src="scripts/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/default.js" type="text/javascript"></script>
+
+
+    <script src="scripts/camera/scripts/camera.min.js" type="text/javascript"></script>
+    <script src="scripts/easing/jquery.easing.1.3.js" type="text/javascript"></script>
+    <script src="scripts/camera/scripts/jquery.mobile.customized.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#stove").hide();
+            $("#pan").hide();
+            $("#oil").hide();
+            $("#pork").hide();
+            $("#spatula").hide();
+           
+        });
+
+        function showPicture(_obj) {
+            var data_image = _obj.name;
+            var id = data_image;
+            // $(id).fadeIn("slow");
+            // console.log(id);
+            var content = document.getElementById("stove");
+            var stove_output = content.getAttribute("data-output");
+
+            // for Stove
+
+            if (stove_output == "false") {
+            	if(id == "stove") {
+            		$("#"+id).fadeIn("slow");
+            		content.setAttribute("data-output", "true");
+            		$("#stove1").fadeOut();//image in palete
+
+            	} else {
+            		alert("wrong");
+            	}
+
+            }else{
+            	// for Pan: next step
+            	//Stove = true and fadeOut
+            	var content1 = document.getElementById("pan");
+            	var pan_output = content1.getAttribute("data-output");
+                var pansounds = new Audio("sounds/Pansounds.mp3");
+            	if(pan_output == "false"){
+            		if (id == "pan") {
+            			$("#"+id).fadeIn("slow");
+                        pansounds.play();
+            			content1.setAttribute("data-output", "true");
+            			$("#pan1").fadeOut();// image in palete
+            		}else{
+            			alert("wrong");
+            		}
+            		
+            	}else{
+            		//for Oil: next step
+                    // Pan is true and FadeOut
+                    var content2 = document.getElementById("oil");
+                    var oil_output = content2.getAttribute("data-output");
+
+                    if (oil_output == "false") {
+                        if (id == "oil") {
+                            $("#"+id).fadeIn("slow");
+                            content2.setAttribute("data-output", "true");
+                            $("#oil1").fadeOut();// image in palete
+                        }else{
+                            alert("wrong");
+                        }
+                    }else{
+                        //for pork: next step
+                        // Oil is true and Fade Out
+                        var content3 = document.getElementById("pork");
+                        var pork_output = content3.getAttribute("data-output");
+                        var frysound = new Audio("sounds/Frysounds.mp3");
+                        if (pork_output == "false") {
+                            if (id == "pork") {
+                                $("#"+id).fadeIn("slow");
+                                frysound.play();
+                                content3.setAttribute("data-output", "true");
+                                $("#pork1").fadeOut();//image in palete
+                            }else{
+                                alert("wrong");
+                            } 
+                        }    //alert("Lechon Kawali is ready to serve!");
+                    } 
+            	} 
+            }
+        }
+        $("#pork").fadeOut();//image in palete
+</script>
+    <div class="palete floatright">
+		<img id="stove1" name="stove" src="images/stove.png" onClick="showPicture(this)">
+		<!-- <img id="spatula1" name="spatula" src="images/spatula.png" onClick="showPicture(this)"> -->
+		<img id="oil1" name="oil" src="images/oil.png" onClick="showPicture(this)">
+		<img id="pan1" name="pan" src="images/pan.png" onClick="showPicture(this)">
+		<img id="pork1" name="pork" src="images/pork.png" onClick="showPicture(this)">
+		<!-- oil -->
+        <!-- water -->
+	</div>
+
+    <div class="instruction">
+        <p><strong>Instructions:</strong><br /> 
+        Determine the procedures on how to cook Lechon Kawali</p>
+    </div>
+
+    <div id="kitchen-tools" class="floatleft">
+        <img id="stove" data-output="false" src="images/stove.png" />
+        <img id="pan" data-output="false" src="images/pan.png" />
+        <img id="oil" data-output="false" src="images/oil1.png" />
+        <!-- <img id="spatula" data-output="false" src="images/spatula.png" /> -->
+        <img id="pork" data-output="false" src="images/pork.png"> -->
+        <!-- <img id="soy" data-output="false" src="images/soy.png"> -->
+        <!-- <img id="garlic" data-output="false" src="images/garlic.png"> -->
+        <!-- oil -->
+        <!-- water -->
+    </div>
+</body>
+</html>
+
+	
+
+	
